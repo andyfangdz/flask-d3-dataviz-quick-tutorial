@@ -21,6 +21,11 @@ def search():
     r = requests.get('https://api.tronalddump.io/search/quote?query=' + request.form['phrase'])
     return jsonify([x["value"] for x in r.json()['_embedded']['quotes']])
 
+@app.route('/quote')
+def quote():
+    r = requests.get('https://api.tronalddump.io/random/quote')
+    return jsonify(r.json()["value"])
+
 @app.route('/user/<username>')
 def show_user_profile(username):
     # show the user profile for that user
