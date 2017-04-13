@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import jsonify
+import requests
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -17,7 +18,8 @@ def hello(name=None):
 
 @app.route('/search', methods=['POST'])
 def search():
-    return request.form["phrase"]
+    r = requests.get('https://api.tronalddump.io/search/quote?query=' + request.form['phrase'])
+    return jsonify([x["value"] for x in r.json()['_embedded']['quotes']])
 
 @app.route('/user/<username>')
 def show_user_profile(username):

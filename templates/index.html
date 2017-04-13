@@ -17,7 +17,10 @@
                 $.post('/search', {
                     phrase: $('#input-phrase').val()
                 }, function(data) {
-                    d3.select('body').append('h3').text(data);
+                    d3.select('body').selectAll('h3').remove()
+                    .data(data).enter()
+                    .append('h3').text(function(d) {return d})
+                    .exit();
                 });
                 e.preventDefault();
             });
