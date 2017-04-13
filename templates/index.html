@@ -5,13 +5,22 @@
     </head>
     <body>
         <h1>Hello! This is index page.</h1>
-        <form method="POST" action="/search">
-            <input name="phrase" />
-            <button type="submit" value="Submit">Submit</button>
+        <form method="POST" action="/search" id="search-form">
+            <input name="phrase" id="input-phrase" />
+            <button id="submit-button">Submit</button>
         </form>
         <script src="{{ url_for('static', filename='d3.v4.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>
             d3.select('body').append('h2').text('Hello from d3!');
+            $('#submit-button').click(function(e) {
+                $.post('/search', {
+                    phrase: $('#input-phrase').val()
+                }, function(data) {
+                    d3.select('body').append('h3').text(data);
+                });
+                e.preventDefault();
+            });
         </script>
     </body>
 </html>
