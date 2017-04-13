@@ -1,4 +1,6 @@
 from flask import Flask
+from flask import request
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
@@ -19,6 +21,14 @@ def show_user_profile(username):
 def show_post(post_id):
     # show the post with the given id, the id is an integer
     return 'Post %d' % post_id
+
+# Test with command `curl -X POST http://127.0.0.1:5000/login`
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return "login from POST\n"
+    else:
+        return "login from GET\n"
 
 if __name__ == "__main__":
     app.run()
