@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+from flask import jsonify
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -13,6 +14,10 @@ def index():
 @app.route('/hello/<name>')
 def hello(name=None):
     return render_template('hello.html', name=name)
+
+@app.route('/search', methods=['POST'])
+def search():
+    return request.form["phrase"]
 
 @app.route('/user/<username>')
 def show_user_profile(username):

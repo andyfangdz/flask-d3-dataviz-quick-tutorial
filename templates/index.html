@@ -5,6 +5,10 @@
     </head>
     <body>
         <h1>Hello! This is index page.</h1>
+        <form method="POST" action="/search">
+            <input name="phrase" />
+            <button type="submit" value="Submit">Submit</button>
+        </form>
         <script src="{{ url_for('static', filename='d3.v4.js') }}"></script>
         <script>
             d3.select('body').append('h2').text('Hello from d3!');
